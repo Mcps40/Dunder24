@@ -1,0 +1,25 @@
+{
+  "dunderApp": {
+    "jefaturas": {
+      "home": {
+        "title": "Jefaturas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Jefaturas",
+        "createOrEditLabel": "Crear o editar Jefaturas",
+        "notFound": "Ningún Jefaturas encontrado"
+      },
+      "created": "Un nuevo Jefaturas ha sido creado con el identificador {{ param }}",
+      "updated": "Un Jefaturas ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Jefaturas ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Jefaturas {{ id }}?"
+      },
+      "detail": {
+        "title": "Jefaturas"
+      },
+      "id": "ID",
+      "nombre_jefe": "Nombre Jefe",
+      "departamento": "Departamento"
+    }
+  }
+}

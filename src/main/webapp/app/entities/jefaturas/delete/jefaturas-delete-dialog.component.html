@@ -1,0 +1,24 @@
+@if (jefaturas) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(jefaturas.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="jefaturasDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error></jhi-alert-error>
+      <p id="jhi-delete-jefaturas-heading" jhiTranslate="dunderApp.jefaturas.delete.question" [translateValues]="{ id: jefaturas.id }">
+        ¿Seguro que quiere eliminar Jefaturas {{ jefaturas.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-jefaturas" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

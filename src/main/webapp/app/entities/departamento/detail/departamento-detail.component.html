@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (departamento(); as departamentoRef) {
+      <div>
+        <h2 data-cy="departamentoDetailsHeading"><span jhiTranslate="dunderApp.departamento.detail.title">Departamento</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ departamentoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunderApp.departamento.nombre_depto">Nombre Depto</span></dt>
+          <dd>
+            <span>{{ departamentoRef.nombre_depto }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunderApp.departamento.ubicacion_depto">Ubicacion Depto</span></dt>
+          <dd>
+            <span>{{ departamentoRef.ubicacion_depto }}</span>
+          </dd>
+          <dt><span jhiTranslate="dunderApp.departamento.presupuesto_depto">Presupuesto Depto</span></dt>
+          <dd>
+            <span>{{ departamentoRef.presupuesto_depto }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/departamento', departamentoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

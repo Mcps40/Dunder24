@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20241210022631"
+  },
+  "dto": "no",
+  "fields": [
+    {
+      "fieldName": "nombre_empleado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellido_empleado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telefono_empleado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "correo_empleado",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Empleados",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nombre_depto",
+      "otherEntityName": "departamento",
+      "relationshipName": "departamento",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nombre_jefe",
+      "otherEntityName": "jefaturas",
+      "relationshipName": "jefatura",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,155 @@
+<div>
+  <h2 id="page-heading" data-cy="EmpleadosHeading">
+    <span jhiTranslate="dunderApp.empleados.home.title">Empleados</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="dunderApp.empleados.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-empleados"
+        [routerLink]="['/empleados/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="dunderApp.empleados.home.createLabel">Crear nuevo Empleados</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (empleados?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="dunderApp.empleados.home.notFound">Ningún Empleados encontrado</span>
+    </div>
+  }
+
+  @if (empleados && empleados.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nombre_empleado">
+              <div class="d-flex">
+                <span jhiTranslate="dunderApp.empleados.nombre_empleado">Nombre Empleado</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="apellido_empleado">
+              <div class="d-flex">
+                <span jhiTranslate="dunderApp.empleados.apellido_empleado">Apellido Empleado</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="telefono_empleado">
+              <div class="d-flex">
+                <span jhiTranslate="dunderApp.empleados.telefono_empleado">Telefono Empleado</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="correo_empleado">
+              <div class="d-flex">
+                <span jhiTranslate="dunderApp.empleados.correo_empleado">Correo Empleado</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="departamento.nombre_depto">
+              <div class="d-flex">
+                <span jhiTranslate="dunderApp.empleados.departamento">Departamento</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="jefatura.nombre_jefe">
+              <div class="d-flex">
+                <span jhiTranslate="dunderApp.empleados.jefatura">Jefatura</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (empleados of empleados; track trackId(empleados)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/empleados', empleados.id, 'view']">{{ empleados.id }}</a>
+              </td>
+              <td>{{ empleados.nombre_empleado }}</td>
+              <td>{{ empleados.apellido_empleado }}</td>
+              <td>{{ empleados.telefono_empleado }}</td>
+              <td>{{ empleados.correo_empleado }}</td>
+              <td>
+                @if (empleados.departamento) {
+                  <div>
+                    <a [routerLink]="['/departamento', empleados.departamento.id, 'view']">{{ empleados.departamento.nombre_depto }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (empleados.jefatura) {
+                  <div>
+                    <a [routerLink]="['/jefaturas', empleados.jefatura.id, 'view']">{{ empleados.jefatura.nombre_jefe }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/empleados', empleados.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/empleados', empleados.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(empleados)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (empleados && empleados.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

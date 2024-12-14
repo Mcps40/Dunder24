@@ -1,0 +1,122 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-empleados-heading" data-cy="EmpleadosCreateUpdateHeading" jhiTranslate="dunderApp.empleados.home.createOrEditLabel">
+        Crear o editar Empleados
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="dunderApp.empleados.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nombre_empleado" jhiTranslate="dunderApp.empleados.nombre_empleado">Nombre Empleado</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombre_empleado"
+            id="field_nombre_empleado"
+            data-cy="nombre_empleado"
+            formControlName="nombre_empleado"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_apellido_empleado" jhiTranslate="dunderApp.empleados.apellido_empleado"
+            >Apellido Empleado</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="apellido_empleado"
+            id="field_apellido_empleado"
+            data-cy="apellido_empleado"
+            formControlName="apellido_empleado"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_telefono_empleado" jhiTranslate="dunderApp.empleados.telefono_empleado"
+            >Telefono Empleado</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="telefono_empleado"
+            id="field_telefono_empleado"
+            data-cy="telefono_empleado"
+            formControlName="telefono_empleado"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_correo_empleado" jhiTranslate="dunderApp.empleados.correo_empleado">Correo Empleado</label>
+          <input
+            type="text"
+            class="form-control"
+            name="correo_empleado"
+            id="field_correo_empleado"
+            data-cy="correo_empleado"
+            formControlName="correo_empleado"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_departamento" jhiTranslate="dunderApp.empleados.departamento">Departamento</label>
+          <select
+            class="form-control"
+            id="field_departamento"
+            data-cy="departamento"
+            name="departamento"
+            formControlName="departamento"
+            [compareWith]="compareDepartamento"
+          >
+            <option [ngValue]="null"></option>
+            @for (departamentoOption of departamentosSharedCollection; track $index) {
+              <option [ngValue]="departamentoOption">{{ departamentoOption.nombre_depto }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_jefatura" jhiTranslate="dunderApp.empleados.jefatura">Jefatura</label>
+          <select
+            class="form-control"
+            id="field_jefatura"
+            data-cy="jefatura"
+            name="jefatura"
+            formControlName="jefatura"
+            [compareWith]="compareJefaturas"
+          >
+            <option [ngValue]="null"></option>
+            @for (jefaturasOption of jefaturasSharedCollection; track $index) {
+              <option [ngValue]="jefaturasOption">{{ jefaturasOption.nombre_jefe }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
